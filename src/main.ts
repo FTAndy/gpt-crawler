@@ -1,5 +1,6 @@
-import { defaultConfig } from "../config.js";
-import { crawl, write } from "./core.js";
+import { crawlerGithubForGPT } from "./index.js";
 
-await crawl(defaultConfig);
-await write(defaultConfig);
+crawlerGithubForGPT({
+  githubRepoUrl: 'https://github.com/BuilderIO/gpt-crawler',
+  branch: 'main'
+})

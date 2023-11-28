@@ -2,6 +2,7 @@
 import { PlaywrightCrawler, downloadListOfUrls } from "crawlee";
 import { readFile, writeFile } from "fs/promises";
 import { glob } from "glob";
+import { minimatch } from "minimatch";
 import {Config, configSchema} from "./config.js";
 import { Page } from "playwright";
 
@@ -23,7 +24,7 @@ export function getPageHtml(page: Page, selector = "body") {
     } else {
       // Handle as a CSS selector
       const el = document.querySelector(selector) as HTMLElement | null;
-      return el?.innerText || "";
+      return el?.innerHTML || el?.innerText || "";
     }
   }, selector);
 }
@@ -52,6 +53,7 @@ export async function crawl(config: Config) {
     // PlaywrightCrawler crawls the web using a headless
     // browser controlled by the Playwright library.
     const crawler = new PlaywrightCrawler({
+      // headless: false,
       // Use the requestHandler to process each of the crawled pages.
       async requestHandler({ request, page, enqueueLinks, log, pushData }) {
         if (config.cookie) {
@@ -65,30 +67,35 @@ export async function crawl(config: Config) {
         }
 
         const title = await page.title();
-        pageCounter++;
         log.info(
           `Crawling: Page ${pageCounter} / ${config.maxPagesToCrawl} - URL: ${request.loadedUrl}...`
         );
+        pageCounter++;
+        
+        const matchedPattern = config.match.find((match) => {
+          return minimatch(request.url, match.pattern);
+        })
 
         // Use custom handling for XPath selector
-        if (config.selector) {
-          if (config.selector.startsWith("/")) {
+        if (matchedPattern && !matchedPattern.skip) {
+          const selector = matchedPattern?.selector || 'body';
+          if (selector.startsWith("/")) {
             await waitForXPath(
               page,
-              config.selector,
+              selector,
               config.waitForSelectorTimeout ?? 1000
             );
           } else {
-            await page.waitForSelector(config.selector, {
+            await page.waitForSelector(selector, {
               timeout: config.waitForSelectorTimeout ?? 1000,
             });
           }
+          const html = await getPageHtml(page, selector);
+
+          // Save results as JSON to ./storage/datasets/default
+          await pushData({ title, url: request.loadedUrl, html });
+          
         }
-
-        const html = await getPageHtml(page, config.selector);
-
-        // Save results as JSON to ./storage/datasets/default
-        await pushData({ title, url: request.loadedUrl, html });
 
         if (config.onVisitPage) {
           await config.onVisitPage({ page, pushData });
@@ -98,7 +105,7 @@ export async function crawl(config: Config) {
         // and add them to the crawling queue.
         await enqueueLinks({
           globs:
-            typeof config.match === "string" ? [config.match] : config.match,
+            config.match.map(s => s.pattern),
         });
       },
       // Comment this option to scrape the full website.

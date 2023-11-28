@@ -17,7 +17,27 @@ export const configSchema = z.object({
    * @example "https://www.builder.io/c/docs/**"
    * @default ""
    */
-  match: z.string().or(z.array(z.string())),
+  // match: z.string().or(z.array(z.string())),
+  /**
+   * Pattern to match against for links on a page to subsequently crawl
+   * @example "https://www.builder.io/c/docs/**"
+   * @default ""
+   */
+  match: z.array(z.object({
+    /** 
+     * Pattern to match against for links on a page to subsequently crawl
+     * @example "https://www.builder.io/c/docs/**"
+     * @default ""
+     */
+    pattern: z.string(),
+    /**
+     * Selector to grab the inner text from
+     * @example ".docs-builder-container"
+     * @default ""
+     */
+    selector: z.string().optional(),
+    skip: z.boolean().optional()
+  })),
 
   /**
    * Selector to grab the inner text from
