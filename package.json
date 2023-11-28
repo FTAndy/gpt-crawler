@@ -1,6 +1,6 @@
 {
   "name": "repo-crawler-for-gpt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "bin": {
     "gpt-crawler": "./dist/src/cli.js"
@@ -37,6 +37,6 @@
     "build": "tsc",
     "fmt": "prettier --write ."
   },
-  "author": "It's not you it's me",
+  "author": "Andy Qin",
   "license": "ISC"
 }
