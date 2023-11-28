@@ -1,6 +1,6 @@
 Inspire by [gpt-crawler](https://github.com/BuilderIO/gpt-crawler)
 
-This package will crawl source code and doc files from the Github repo and generate a output file that can be shoved into GPT for building a repo assistant.
+This package will crawl source code and doc files from the Github repo and generate an output file that can be shoved into GPT for building a repo assistant.
 
 ![demo](https://github.com/FTAndy/gpt-crawler/blob/main/demo.png?raw=true)
 
@@ -19,7 +19,7 @@ Crawl a Github repo to generate code files to create a custom GPT
 
 ## Example
 
-[Here is a custom GPT](https://chat.openai.com/g/g-Cnxt38AbK-gpt-crawler-repo-analyzer) that made to help answer questions about the repo [gpt-crawler](https://github.com/BuilderIO/gpt-crawler)
+[Here is a custom GPT](https://chat.openai.com/g/g-Cnxt38AbK-gpt-crawler-repo-analyzer) that was made to help answer questions about the repo [gpt-crawler](https://github.com/BuilderIO/gpt-crawler)
 
 > Note that you may need a paid ChatGPT plan to access this feature
 
@@ -33,7 +33,7 @@ npm i repo-crawler-for-gpt
 
 ### Start to crawl
 
-E.g. to crawl the the source code of [gpt-crawler](https://github.com/BuilderIO/gpt-crawler) to a custom GPT
+E.g. to crawl the source code of [gpt-crawler](https://github.com/BuilderIO/gpt-crawler) to a custom GPT
 
 ```ts
 import { crawlerGithubForGPT } from "repo-crawler-for-gpt";
@@ -41,6 +41,8 @@ import { crawlerGithubForGPT } from "repo-crawler-for-gpt";
 crawlerGithubForGPT({
   githubRepoUrl: 'https://github.com/BuilderIO/gpt-crawler',
   branch: 'main'
+  // or
+  tag: 'v1.0.0'
 })
 
 ```
