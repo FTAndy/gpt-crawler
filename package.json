@@ -1,6 +1,6 @@
 {
   "name": "repo-crawler-for-gpt",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "type": "commonjs",
   "repository": "https://github.com/FTAndy/repo-crawler-for-gpt",
   "main": "dist/index.js",
