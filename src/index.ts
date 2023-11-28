@@ -41,7 +41,7 @@ export async function crawlerGithubForGPT(config: GithubConfig) {
       },
     ],
     // selector: '#read-only-cursor-text-area',
-    maxPagesToCrawl: 1000,
+    maxPagesToCrawl: 500,
     waitForSelectorTimeout: 1000 * 5,
     outputFileName: "output.json",
   };

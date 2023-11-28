@@ -1,9 +1,9 @@
 {
   "name": "repo-crawler-for-gpt",
-  "version": "1.0.3",
-  "type": "module",
+  "version": "1.0.9",
+  "type": "commonjs",
   "repository": "https://github.com/FTAndy/repo-crawler-for-gpt",
-  "main": "dist/src/main.js",
+  "main": "dist/index.js",
   "bin": {
     "gpt-crawler": "./dist/src/cli.js"
   },

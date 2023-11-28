@@ -1,9 +1,9 @@
 {
   "extends": "@apify/tsconfig",
   "compilerOptions": {
-    "module": "ES2022",
-    "target": "ES2022",
-    "outDir": "dist",
+    "module": "commonjs",
+    "target": "es2018",
+    "outDir": "./dist",
     "resolveJsonModule": true,
     "noUnusedLocals": false,
     "skipLibCheck": true,

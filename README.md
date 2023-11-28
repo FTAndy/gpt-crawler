@@ -36,11 +36,11 @@ npm i repo-crawler-for-gpt
 E.g. to crawl the source code of [gpt-crawler](https://github.com/BuilderIO/gpt-crawler) to a custom GPT
 
 ```ts
-import { crawlerGithubForGPT } from "repo-crawler-for-gpt";
+const {crawlerGithubForGPT } = require("repo-crawler-for-gpt");
 
 crawlerGithubForGPT({
   githubRepoUrl: 'https://github.com/BuilderIO/gpt-crawler',
-  branch: 'main'
+  branch: 'main',
   // or
   tag: 'v1.0.0'
 })
