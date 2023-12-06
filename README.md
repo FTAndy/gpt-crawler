@@ -1,6 +1,11 @@
 Inspire by [gpt-crawler](https://github.com/BuilderIO/gpt-crawler)
 
-This package will crawl source code and doc files from the Github repo and generate an output file that can be shoved into GPT for building a repo assistant.
+This package will crawl source code and doc files from the Github repo and generate an output file that can be shoved into GPT for building a repo assistant. You can do all kind of things using this assistant:
+
+- Write README document for the whole project.
+- Find potential bugs.
+- Analyze and learn the architecture.
+- ...more
 
 ![demo](https://github.com/FTAndy/gpt-crawler/blob/main/demo.png?raw=true)
 
