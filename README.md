@@ -30,6 +30,11 @@ Crawl a Github repo to generate code files to create a custom GPT
 
 ## Get started
 
+### Direct Usage
+```sh
+npx repo-crawler-for-gpt
+```
+
 ### Install
 
 ```sh

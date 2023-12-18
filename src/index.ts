@@ -9,7 +9,7 @@ const githubConfigSchema = zod.object({
   branch: zod.string().optional(),
 })
 
-type GithubConfig = zod.infer<typeof githubConfigSchema>;
+export type GithubConfig = zod.infer<typeof githubConfigSchema>;
 
 
 export async function crawlerGithubForGPT(config: GithubConfig) {

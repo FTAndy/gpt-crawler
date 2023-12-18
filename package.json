@@ -1,11 +1,10 @@
 {
   "name": "repo-crawler-for-gpt",
-  "version": "1.0.10",
-  "type": "commonjs",
+  "version": "1.0.11",
   "repository": "https://github.com/FTAndy/repo-crawler-for-gpt",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "bin": {
-    "gpt-crawler": "./dist/src/cli.js"
+    "gpt-repo-crawler": "./dist/src/cli.js"
   },
   "description": "Crawl a site to generate knowledge files to create your own custom GPT",
   "dependencies": {
@@ -13,7 +12,7 @@
     "crawlee": "^3.0.0",
     "cross-env": "^7.0.3",
     "glob": "^10.3.10",
-    "inquirer": "^9.2.12",
+    "inquirer": "^8.2.6",
     "minimatch": "^9.0.3",
     "playwright": "*",
     "prettier": "^3.1.0",
@@ -25,6 +24,7 @@
     "@semantic-release/git": "^10.0.1",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.0.0",
+    "rimraf": "^5.0.5",
     "semantic-release": "^22.0.8",
     "ts-node": "^10.8.0",
     "typescript": "^5.0.0"
@@ -36,8 +36,9 @@
     "start:cli": "cross-env NODE_ENV=development npm run build && node dist/src/cli.js",
     "start:dev": "cross-env NODE_ENV=development npm run build && node dist/src/main.js",
     "start:prod": "node dist/src/main.js",
-    "build": "tsc",
-    "fmt": "prettier --write ."
+    "build": "rimraf ./dist && tsc",
+    "fmt": "prettier --write .",
+    "test:build": "npm run build && chmod +x ./dist/src/cli.js"
   },
   "author": "Andy Qin",
   "license": "ISC"

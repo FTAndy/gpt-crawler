@@ -1,97 +1,63 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import { Config } from "./config.js";
-import { crawl, write } from "./core.js";
-import { createRequire } from "node:module";
+import { GithubConfig, crawlerGithubForGPT } from "./index.js";
+import packageJSON from '../package.json'
 import inquirer from "inquirer";
 
-const require = createRequire(import.meta.url);
-const { version, description } = require("../../package.json");
 
 const messages = {
-  url: "What is the first URL of the website you want to crawl?",
-  match: "What is the URL pattern you want to match?",
-  selector: "What is the CSS selector you want to match?",
-  maxPagesToCrawl: "How many pages do you want to crawl?",
-  outputFileName: "What is the name of the output file?",
+  url: "What is the URL of the github project you want to crawl?",
+  branch: "What is the branch? (default to master)",
 };
 
-async function handler(options: Config) {
+async function handler(options: GithubConfig) {
   try {
-    const {
-      url,
-      match,
-      selector,
-      maxPagesToCrawl: maxPagesToCrawlStr,
-      outputFileName,
+    let {
+      githubRepoUrl,
+      branch
     } = options;
 
-    // @ts-ignore
-    const maxPagesToCrawl = parseInt(maxPagesToCrawlStr, 10);
+    const questions = [];
 
-    let config: Config = {
-      url,
-      match,
-      selector,
-      maxPagesToCrawl,
-      outputFileName,
-    };
-
-    if (!config.url || !config.match || !config.selector) {
-      const questions = [];
-
-      if (!config.url) {
-        questions.push({
-          type: "input",
-          name: "url",
-          message: messages.url,
-        });
-      }
-
-      if (!config.match) {
-        questions.push({
-          type: "input",
-          name: "match",
-          message: messages.match,
-        });
-      }
-
-      if (!config.selector) {
-        questions.push({
-          type: "input",
-          name: "selector",
-          message: messages.selector,
-        });
-      }
-
-      const answers = await inquirer.prompt(questions);
-
-      config = {
-        ...config,
-        ...answers,
-      };
+    if (!githubRepoUrl) {
+      questions.push({
+        type: "input",
+        name: "url",
+        message: messages.url,
+      });
     }
 
-    await crawl(config);
-    await write(config);
+    if (!branch) {
+      questions.push({
+        type: "input",
+        name: "branch",
+        message: messages.branch,
+      });
+    }
+
+    const answers = await inquirer.prompt(questions);
+
+    githubRepoUrl = githubRepoUrl || answers.url;
+    branch = branch || answers.branch || 'master';
+
+    console.log(githubRepoUrl, branch)
+
+    crawlerGithubForGPT({
+      githubRepoUrl,
+      branch: branch
+    })
+
   } catch (error) {
     console.log(error);
   }
 }
 
-program.version(version).description(description);
+program.version(packageJSON.version)
 
 program
-  .option("-u, --url <string>", messages.url, "")
-  .option("-m, --match <string>", messages.match, "")
-  .option("-s, --selector <string>", messages.selector, "")
-  .option("-m, --maxPagesToCrawl <number>", messages.maxPagesToCrawl, "50")
-  .option(
-    "-o, --outputFileName <string>",
-    messages.outputFileName,
-    "output.json",
-  )
+  .option("-u, --githubRepoUrl <string>", messages.url, "")
+  .option("-m, --branch <string>", messages.branch, "")
   .action(handler);
 
 program.parse();
