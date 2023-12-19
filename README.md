@@ -7,6 +7,11 @@ This package will crawl source code and doc files from the Github repo and gener
 - Analyze and learn the architecture.
 - ...more
 
+Here are some GPTs created to analyze code:
+
+- [react-virtuoso](https://chat.openai.com/g/g-WOhTJGfKu-react-virtuoso-analyzer) to analyze https://github.com/petyosi/react-virtuoso
+- [gpt-crawler](https://chat.openai.com/g/g-Cnxt38AbK-gpt-crawler-repo-analyzer) to analyze https://github.com/BuilderIO/gpt-crawler
+
 ![demo](https://github.com/FTAndy/gpt-crawler/blob/main/demo.png?raw=true)
 
 # Github repo GPT Crawler <!-- omit from toc -->
