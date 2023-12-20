@@ -1,3 +1,6 @@
+# A toy
+Go to use [Github Copilot workspace](https://code.visualstudio.com/docs/editor/github-copilot#_chat-view) to analyze your code, this repo is tedious.
+
 Inspire by [gpt-crawler](https://github.com/BuilderIO/gpt-crawler)
 
 This package will crawl source code and doc files from the Github repo and generate an output file that can be shoved into GPT for building a repo assistant. You can do all kind of things using this assistant:
